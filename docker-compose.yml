@@ -1,0 +1,22 @@
+version: "3.3"
+networks:
+  container-link:
+    name: docker.internal
+services:
+  db:
+    build: ./mysql
+    platform: linux/amd64
+    networks:
+      - container-link
+    volumes:
+      - ./mysql/initdb.d/:/docker-entrypoint-initdb.d
+      - db-store:/var/lib/mysql
+    env_file:
+      - ./.env
+    environment:
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - 3306:3306
+    container_name: lambda-study-db
+volumes:
+  db-store:

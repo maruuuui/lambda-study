@@ -2,6 +2,8 @@ import json
 
 import requests
 
+import mysql.connector
+
 def lambda_handler(event, context):
     """Sample pure Lambda function
 
@@ -24,21 +26,37 @@ def lambda_handler(event, context):
         Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
     """
 
-    try:
-        ip = requests.get("http://checkip.amazonaws.com/")
-    except requests.RequestException as e:
-        # Send some context about this error to Lambda Logs
-        print(e)
-
-    #     raise e
-
-    id = event["pathParameters"]["id"]
+    results = connect_db()
+    response = []
+    for result in results:
+        response +=[
+            {
+                "name":result["name"],
+                "age":result["age"]
+            }
+        ]
 
     return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "message": "hello world",
-            "location": ip.text.replace("\n", ""),
-            "pathParameter":id
-        }),
+        "statusCode":200,
+        "body":json.dumps({"results":response})
     }
+
+def connect_db():    
+    # データベースへの接続とカーソルの生成
+    sql = "select * from sample;"
+    conn = mysql.connector.connect(
+        host = "lambda-study-db",
+        port ="3306",
+        user = "root",
+        password = "rootpass",
+        database = "sample_db"
+    )
+    print("connected!")
+    cur = conn.cursor(dictionary=True)
+
+    cur.execute(sql)
+    results = cur.fetchall()
+    # 接続を閉じる
+    cur.close()
+    conn.close()
+    return results

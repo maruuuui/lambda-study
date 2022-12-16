@@ -3,3 +3,4 @@
 beego/app/app
 beego/app/lastupdate.tmp
 .aws-sam/
+.DS_Store
