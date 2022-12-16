@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "hello-world"
+version = "0.1.0"
+description = ""
+authors = ["tmp <hogehoge@example.com>"]
+readme = "README.md"
+packages = [{include = "hello_world"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.11"
+requests = "^2.28.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,5 @@
+.env
+
+beego/app/app
+beego/app/lastupdate.tmp
+.aws-sam/
