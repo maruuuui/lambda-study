@@ -22,8 +22,10 @@ FROM initial as development-base
 COPY poetry.lock pyproject.toml ./
 # --no-rootをつけないとインストールに失敗するらしい
 # https://github.com/python-poetry/poetry/issues/1227
-RUN poetry install --no-root
+RUN poetry install --no-root --only main
+
 COPY app.py ./
+COPY util/ ./util/
 
 # Command can be overwritten by providing a different command in the template directly.
 CMD ["app.lambda_handler"]

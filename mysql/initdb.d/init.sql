@@ -1,11 +1,14 @@
 CREATE DATABASE IF NOT EXISTS sample_db;
-CREATE TABLE IF NOT EXISTS sample_db.sample (
-    id INT(11) AUTO_INCREMENT NOT NULL, 
-    name VARCHAR(30) NOT NULL COLLATE utf8mb4_unicode_ci, 
-    age INT(3) NOT NULL,
+
+CREATE TABLE IF NOT EXISTS sample_db.to_dos (
+    `id` varchar(191) NOT NULL,
+    `title` longtext,
+    `memo` longtext,
+    `deadline` datetime(3) DEFAULT NULL,
+    `created_at` datetime(3) DEFAULT NULL,
     PRIMARY KEY (`id`)
-);
-INSERT INTO sample_db.sample (name, age)
-        VALUES ('1st', '25'),
-        ('2nd', '23'),
-        ('3rd', '21');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ;
+
+INSERT IGNORE INTO sample_db.to_dos (id, title, memo, deadline)
+    VALUES ('1st', 'title1', 'memomemo', '2022-12-12 12:12:12'),
+    ('2nd', 'title2', 'memomemomemo', '2023-01-01 01:01:01');
