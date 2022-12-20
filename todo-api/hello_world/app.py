@@ -27,6 +27,7 @@ def lambda_handler(event, context):
     for result in results:
         response += [
             {
+                "id": result["id"],
                 "title": result["title"], 
                 "memo": result["memo"],
                 "deadline": (result["deadline"]).strftime('%Y/%m/%d %H:%M:%S'),
