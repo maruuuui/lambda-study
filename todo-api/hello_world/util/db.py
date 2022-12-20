@@ -6,7 +6,7 @@ class DataBaseAdapter:
         # データベースへの接続とカーソルの生成
         # TODO: 環境ごとに差し替える仕組み
         self.host = "lambda-study-db"
-        self.port = ("3306",)
+        self.port = ("3307",)
         self.user = ("root",)
         self.password = ("rootpass",)
         self.database = "sample_db"
@@ -15,7 +15,7 @@ class DataBaseAdapter:
         # データベースへの接続とカーソルの生成
         self.conn = mysql.connector.connect(
             host="lambda-study-db",
-            port="3306",
+            port="3307",
             user="root",
             password="rootpass",
             database="sample_db",
@@ -49,6 +49,7 @@ class DataBaseAdapter:
         return results
 
     def get_all(self):
+        print("get_all")
         self.connect_db()
 
         sql = "select * from to_dos;"

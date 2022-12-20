@@ -33,4 +33,12 @@ def lambda_handler(event, context):
             }
         ]
     print(response)
-    return {"statusCode": 200, "body": json.dumps({"results": response})}
+    return {
+        "statusCode": 200, 
+        'headers': {
+            "Access-Control-Allow-Headers": "Content-Type,X-CSRF-TOKEN",
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
+        },
+        "body": json.dumps(response)
+    }

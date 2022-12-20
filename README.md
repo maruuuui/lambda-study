@@ -7,3 +7,13 @@ serverlessなバックエンドを構築する練習
 ## やること
 
  + mysqlでToDoアプリを作成し、AWS上にデプロイする  
+
+## コマンド
+
+```sh
+# dbを立ち上げる
+docker-compose up -d
+# ローカルでlambdaを立ち上げる
+cd todo-api
+./start-api-local.sh
+```
