@@ -29,6 +29,16 @@ def lambda_handler(event, context):
         return post_handler(event)
     elif http_method == "DELETE":
         return delete_handler(event)
+    elif http_method == "OPTIONS":
+        return {
+        "statusCode": 200, 
+        'headers': {
+            "Access-Control-Allow-Headers": "Content-Type",
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
+        },
+        "body": json.dumps({})
+    }
     else:
         raise ValueError("invalid method")
 
@@ -51,7 +61,7 @@ def get_handler(event):
     return {
         "statusCode": 200, 
         'headers': {
-            "Access-Control-Allow-Headers": "Content-Type,X-CSRF-TOKEN",
+            "Access-Control-Allow-Headers": "Content-Type",
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
         },
@@ -68,7 +78,7 @@ def post_handler(event):
         return {
             "statusCode": 400, 
             'headers': {
-                "Access-Control-Allow-Headers": "Content-Type,X-CSRF-TOKEN",
+                "Access-Control-Allow-Headers": "Content-Type",
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
             },
@@ -81,7 +91,7 @@ def post_handler(event):
         return {
             "statusCode": 400, 
             'headers': {
-                "Access-Control-Allow-Headers": "Content-Type,X-CSRF-TOKEN",
+                "Access-Control-Allow-Headers": "Content-Type",
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
             },
@@ -106,7 +116,7 @@ def post_handler(event):
     return {
         "statusCode": 200, 
         'headers': {
-            "Access-Control-Allow-Headers": "Content-Type,X-CSRF-TOKEN",
+            "Access-Control-Allow-Headers": "Content-Type",
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
         },
@@ -121,7 +131,7 @@ def delete_handler(event):
         return {
             "statusCode": 400, 
             'headers': {
-                "Access-Control-Allow-Headers": "Content-Type,X-CSRF-TOKEN",
+                "Access-Control-Allow-Headers": "Content-Type",
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
             },
@@ -138,7 +148,7 @@ def delete_handler(event):
     return {
         "statusCode": 200, 
         'headers': {
-            "Access-Control-Allow-Headers": "Content-Type,X-CSRF-TOKEN",
+            "Access-Control-Allow-Headers": "Content-Type",
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
         },

@@ -13,9 +13,8 @@ Globals:
   Api:
     Cors:
       AllowOrigin: "'*'"
-      AllowCredentials: true
       AllowMethods: "'OPTIONS,GET,POST,DELETE'"
-      AllowHeaders: "'Content-Type,X-CSRF-TOKEN'"
+      AllowHeaders: "'Content-Type'"
 Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -34,11 +33,21 @@ Resources:
           Properties:
             Path: /
             Method: post
+        HelloWorldOptions:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /
+            Method: options
         HelloWorldDelete:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /{id}
             Method: delete
+        HelloWorldDeleteOptions:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /{id}
+            Method: options
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./hello_world
