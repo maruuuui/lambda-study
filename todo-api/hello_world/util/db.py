@@ -6,75 +6,72 @@ class DataBaseAdapter:
         # データベースへの接続とカーソルの生成
         # TODO: 環境ごとに差し替える仕組み
         self.host = "lambda-study-db"
-        self.port = ("3307",)
-        self.user = ("root",)
-        self.password = ("rootpass",)
+        self.port = "3307"
+        self.user = "root"
+        self.password = "rootpass"
         self.database = "sample_db"
 
     def connect_db(self):
         # データベースへの接続とカーソルの生成
-        self.conn = mysql.connector.connect(
-            host="lambda-study-db",
-            port="3307",
-            user="root",
-            password="rootpass",
-            database="sample_db",
+        connection = mysql.connector.connect(
+            host=self.host,
+            port=self.port,
+            user=self.user,
+            password=self.password,
+            database=self.database,
         )
         print("connected!")
-        self.cur = self.conn.cursor(dictionary=True)
-
-    def disconnect_db(self):
-        # 接続を閉じる
-        self.cur.close()
-        self.conn.close()
+        return connection
 
     def create(self, to_do):
-        self.connect_db()
+        connection = self.connect_db()
+        with connection:
+            with connection.cursor(dictionary=True) as cur:
+                # レコードを挿入
+                sql = "INSERT INTO `to_dos` (`id`, `title`, `memo`, `deadline`) VALUES (%s, %s, %s, %s)"
+                cur.execute(sql, (to_do["id"], to_do["title"], to_do["memo"], to_do["deadline"]))
 
-        sql = "select * from to_dos;"
-        self.cur.execute(sql)
-        results = self.cur.fetchall()
+                result_sql = "select * from to_dos where `id`=%s;"
+                cur.execute(result_sql, (to_do["id"],))
 
-        self.disconnect_db()
-        return results
+                result = cur.fetchone()
+            # コミットしてトランザクション実行
+            connection.commit()
+        # 終了処理
+        cur.close()
+        return result
 
     def update(self, to_do):
-        self.connect_db()
-
-        sql = "select * from to_dos;"
-        self.cur.execute(sql)
-        results = self.cur.fetchall()
-
-        self.disconnect_db()
-        return results
+        pass
 
     def get_all(self):
         print("get_all")
-        self.connect_db()
+        connection = self.connect_db()
 
-        sql = "select * from to_dos;"
-        self.cur.execute(sql)
-        results = self.cur.fetchall()
+        with connection.cursor(dictionary=True) as cur:
+            sql = "select * from to_dos;"
+            cur.execute(sql)
+            results = cur.fetchall()
 
-        self.disconnect_db()
+        # 終了処理
+        cur.close()
         return results
 
     def get(self, id):
-        self.connect_db()
+        pass
 
-        sql = "select * from to_dos;"
-        self.cur.execute(sql)
-        results = self.cur.fetchall()
+    def delete(self, todo_id):
+        print("delete", todo_id)
+        connection = self.connect_db()
+        with connection:
+            with connection.cursor(dictionary=True) as cur:
 
-        self.disconnect_db()
-        return results
+                sql = "delete from to_dos where `id`=%s;"
+                cur.execute(sql, (todo_id,))
+                result = {"deleted_rowcount": cur.rowcount}
+            # コミットしてトランザクション実行
+            connection.commit()
 
-    def delete(self, id):
-        self.connect_db()
-
-        sql = "select * from to_dos;"
-        self.cur.execute(sql)
-        results = self.cur.fetchall()
-
-        self.disconnect_db()
-        return results
+        # 終了処理
+        cur.close()
+        return result
