@@ -54,7 +54,7 @@ class DataBaseAdapter:
         connection = self.connect_db()
 
         with connection.cursor(dictionary=True) as cur:
-            sql = "select * from to_dos;"
+            sql = "select * from to_dos order by deadline;"
             cur.execute(sql)
             results = cur.fetchall()
 
