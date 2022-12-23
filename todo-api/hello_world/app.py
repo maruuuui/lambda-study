@@ -33,8 +33,9 @@ def lambda_handler(event, context):
         return {
         "statusCode": 200, 
         'headers': {
+            "Content-Type": 'application/json',
             "Access-Control-Allow-Headers": "Content-Type",
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': 'http://s3.maruuuui.tk',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
         },
         "body": json.dumps({})
@@ -61,8 +62,9 @@ def get_handler(event):
     return {
         "statusCode": 200, 
         'headers': {
+            "Content-Type": 'application/json',
             "Access-Control-Allow-Headers": "Content-Type",
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': 'http://s3.maruuuui.tk',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
         },
         "body": json.dumps(response)
@@ -78,8 +80,9 @@ def post_handler(event):
         return {
             "statusCode": 400, 
             'headers': {
+                "Content-Type": 'application/json',
                 "Access-Control-Allow-Headers": "Content-Type",
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'http://s3.maruuuui.tk',
                 'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
             },
             "body": "json decode failed"
@@ -91,8 +94,9 @@ def post_handler(event):
         return {
             "statusCode": 400, 
             'headers': {
+                "Content-Type": 'application/json',
                 "Access-Control-Allow-Headers": "Content-Type",
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'http://s3.maruuuui.tk',
                 'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
             },
             "body": "invalid request body"
@@ -116,8 +120,9 @@ def post_handler(event):
     return {
         "statusCode": 200, 
         'headers': {
+            "Content-Type": 'application/json',
             "Access-Control-Allow-Headers": "Content-Type",
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': 'http://s3.maruuuui.tk',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
         },
         "body": json.dumps(response)
@@ -131,8 +136,9 @@ def delete_handler(event):
         return {
             "statusCode": 400, 
             'headers': {
+                "Content-Type": 'application/json',
                 "Access-Control-Allow-Headers": "Content-Type",
-                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Origin': 'http://s3.maruuuui.tk',
                 'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
             },
             "body": "json decode failed"
@@ -148,8 +154,9 @@ def delete_handler(event):
     return {
         "statusCode": 200, 
         'headers': {
+            "Content-Type": 'application/json',
             "Access-Control-Allow-Headers": "Content-Type",
-            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': 'http://s3.maruuuui.tk',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,POST,DELETE'
         },
         "body": json.dumps(response)

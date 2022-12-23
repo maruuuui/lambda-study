@@ -12,7 +12,7 @@ Globals:
     MemorySize: 128
   Api:
     Cors:
-      AllowOrigin: "'*'"
+      AllowOrigin: "'http://s3.maruuuui.tk'"
       AllowMethods: "'OPTIONS,GET,POST,DELETE'"
       AllowHeaders: "'Content-Type'"
 Resources:
