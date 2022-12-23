@@ -2,15 +2,14 @@ import os
 import mysql.connector
 
 
-MYSQL_HOST_NAME = os.environ.get('MYSQL_HOST_NAME') if os.environ.get('MYSQL_HOST_NAME') else "lambda-study-db"
-MYSQL_PORT_NO = os.environ.get('MYSQL_PORT_NO') if os.environ.get('MYSQL_PORT_NO') else  "3307"
-MYSQL_USER  = os.environ.get('MYSQL_USER') if os.environ.get('MYSQL_USER') else  "root"
-MYSQL_PASSWORD  = os.environ.get('MYSQL_PASSWORD') if os.environ.get('MYSQL_PASSWORD') else  "rootpass"
+MYSQL_HOST_NAME = os.environ.get('MYSQLHOSTNAME') if os.environ.get('MYSQLHOSTNAME') else "lambda-study-db"
+MYSQL_PORT_NO = os.environ.get('MYSQLPORTNO') if os.environ.get('MYSQLPORTNO') else  "3307"
+MYSQL_USER  = os.environ.get('MYSQLUSER') if os.environ.get('MYSQLUSER') else  "root"
+MYSQL_PASSWORD  = os.environ.get('MYSQLPASSWORD') if os.environ.get('MYSQLPASSWORD') else  "rootpass"
 
 class DataBaseAdapter:
     def __init__(self):
-        # データベースへの接続とカーソルの生成
-        # TODO: 環境ごとに差し替える仕組み
+        # データベースへの接続情報
         self.host = MYSQL_HOST_NAME
         self.port = MYSQL_PORT_NO
         self.user = MYSQL_USER

@@ -5,14 +5,33 @@ Description: >
 
   Sample SAM Template for todo-api
 
+Parameters:
+  ALLOWORIGIN:
+    Type: String
+  MYSQLHOSTNAME:
+    Type: String
+  MYSQLPASSWORD:
+    Type: String
+  MYSQLPORTNO:
+    Type: String
+  MYSQLUSER:
+    Type: String
+
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
     Timeout: 10
     MemorySize: 128
+    Environment:
+      Variables:
+        ALLOWORIGIN: !Ref ALLOWORIGIN
+        MYSQLHOSTNAME: !Ref MYSQLHOSTNAME
+        MYSQLPASSWORD: !Ref MYSQLPASSWORD
+        MYSQLPORTNO: !Ref MYSQLPORTNO
+        MYSQLUSER: !Ref MYSQLUSER
   Api:
     Cors:
-      AllowOrigin: "'http://s3.maruuuui.tk'"
+      AllowOrigin: "'*'"
       AllowMethods: "'OPTIONS,GET,POST,DELETE'"
       AllowHeaders: "'Content-Type'"
 Resources:

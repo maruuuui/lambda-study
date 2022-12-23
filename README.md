@@ -8,7 +8,7 @@ serverlessなバックエンドを構築する練習
 
  + mysqlでToDoアプリを作成し、AWS上にデプロイする  
 
-## コマンド
+## ローカル起動コマンド
 
 ```sh
 # dbを立ち上げる
@@ -17,3 +17,14 @@ docker-compose up -d
 cd todo-api
 ./start-api-local.sh
 ```
+
+## デプロイ手順
+
+以下のコマンドを実行する
+```
+cd todo-api
+sum build
+sum deploy
+```
+
+デプロイ先のURL： <http://s3.maruuuui.tk/>
