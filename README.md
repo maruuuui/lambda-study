@@ -4,6 +4,8 @@ https://github.com/maruuuui/docker-golang-study
 のバックエンドをAWS lambda + API Gatewayに置き換え、フロントはSPAに置き換える。
 serverlessなバックエンドを構築する練習
 
+フロントはこちら：https://github.com/maruuuui/react-todo-app
+
 ## やること
 
  + mysqlでToDoアプリを作成し、AWS上にデプロイする  
