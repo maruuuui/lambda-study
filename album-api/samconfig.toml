@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "album-api"
+s3_bucket = "aws-sam-cli-managed-default-album-api"
+s3_prefix = "album-api"
+region = "ap-northeast-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = ["HelloWorldFunction=674302997061.dkr.ecr.ap-northeast-1.amazonaws.com/albumapi9d5888a6/helloworldfunction19d43fc4repo"]
