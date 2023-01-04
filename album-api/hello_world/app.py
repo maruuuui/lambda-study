@@ -16,7 +16,7 @@ DIRECTORY='uploaded_files/'
 ALLOW_ORIGIN=os.environ.get('ALLOWORIGIN') if os.environ.get('ALLOWORIGIN') else "http://localhost:3000"
 ACCESS_KEY_ID=os.environ.get('ACCESS_KEY_ID') if os.environ.get('ACCESS_KEY_ID') else "localid"
 SECRET_ACCESS_KEY=os.environ.get('SECRET_ACCESS_KEY') if os.environ.get('SECRET_ACCESS_KEY') else "localpassword"
-ENDPOINT_URL=os.environ.get('ENDPOINT_URL') if os.environ.get('ENDPOINT_URL') else "http://127.0.0.1:9000"
+ENDPOINT_URL=os.environ.get('ENDPOINT_URL') if os.environ.get('ENDPOINT_URL') else "http://host.docker.internal:9000"
 
 def lambda_handler(event, context):
     http_method = event["httpMethod"]
@@ -59,6 +59,9 @@ def post_handler(event):
         file_name,
         ExtraArgs={'ACL': 'public-read', "ContentType": req_body["type"]}
     )
+    image_path = ENDPOINT_URL.replace("host.docker.internal", "localhost") + "/" + BUCKET_NAME + "/" + file_name
+
+    print("image_path", image_path)
     return {
         'statusCode': 200,
         'headers': {
