@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS sample_db.to_dos (
     `id` varchar(191) NOT NULL,
     `title` longtext,
     `memo` longtext,
+    `image_path` longtext DEFAULT "",
     `deadline` datetime(3) DEFAULT NULL,
     `created_at` datetime(3) DEFAULT NULL,
     PRIMARY KEY (`id`)

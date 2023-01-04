@@ -1,5 +1,8 @@
 version = 0.1
 [default]
+[default.global.parameters]
+parameter_overrides = "ALLOWORIGIN=http://localhost:3000 MYSQLHOSTNAME=lambda-study-db MYSQLPASSWORD=rootpass MYSQLPORTNO=3307 MYSQLUSER=root ENDPOINTURL=http://host.docker.internal:9000"
+
 [default.deploy]
 [default.deploy.parameters]
 stack_name = "album-api"
@@ -8,3 +11,5 @@ s3_prefix = "album-api"
 region = "ap-northeast-1"
 capabilities = "CAPABILITY_IAM"
 image_repositories = ["HelloWorldFunction=674302997061.dkr.ecr.ap-northeast-1.amazonaws.com/albumapi9d5888a6/helloworldfunction19d43fc4repo"]
+
+parameter_overrides = "ALLOWORIGIN=http://s3.maruuuui.tk MYSQLHOSTNAME=todo-database.c6zossjgd3tu.ap-northeast-1.rds.amazonaws.com MYSQLPASSWORD=todopass MYSQLPORTNO=3306 MYSQLUSER=admin ENDPOINTURL=http://127.0.0.1:9000"
