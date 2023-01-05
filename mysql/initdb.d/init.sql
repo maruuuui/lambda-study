@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS sample_db.images (
     `title` longtext,
     `memo` longtext,
     `image_path` longtext,
-    `created_at` datetime(3) DEFAULT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ;
 
