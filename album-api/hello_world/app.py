@@ -71,7 +71,7 @@ def post_handler(event):
         "title": result["title"], 
         "memo": result["memo"],
         "image_path": result["image_path"],
-        "created_at": result["created_at"].strftime('%Y/%m/%d %H:%M:%S'),
+        "created_at": result["created_at"],
     }
 
     print(response)
@@ -99,7 +99,7 @@ def get_handler(event):
                 "title": result["title"], 
                 "memo": result["memo"],
                 "image_path": result["image_path"],
-                "created_at": result["created_at"].strftime('%Y/%m/%d %H:%M:%S'),
+                "created_at": result["created_at"],
             }
         ]
     print(response)

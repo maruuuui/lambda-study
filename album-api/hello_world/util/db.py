@@ -1,82 +1,74 @@
+from datetime import datetime
+from dateutil import tz
+
 import os
-import mysql.connector
+import boto3
+from botocore.exceptions import ClientError
 
-
-MYSQL_HOST_NAME = os.environ.get('MYSQLHOSTNAME') if os.environ.get('MYSQLHOSTNAME') else "lambda-study-db"
-MYSQL_PORT_NO = os.environ.get('MYSQLPORTNO') if os.environ.get('MYSQLPORTNO') else  "3307"
-MYSQL_USER  = os.environ.get('MYSQLUSER') if os.environ.get('MYSQLUSER') else  "root"
-MYSQL_PASSWORD  = os.environ.get('MYSQLPASSWORD') if os.environ.get('MYSQLPASSWORD') else  "rootpass"
-
+ACCESS_KEY_ID=os.environ.get('ACCESS_KEY_ID') if os.environ.get('ACCESS_KEY_ID') else "localid"
+SECRET_ACCESS_KEY=os.environ.get('SECRET_ACCESS_KEY') if os.environ.get('SECRET_ACCESS_KEY') else "localpassword"
+DYNAMO_ENDPOINT_URL = os.environ.get('DYNAMO_ENDPOINT_URL') if os.environ.get('DYNAMO_ENDPOINT_URL') else "http://host.docker.internal:8005"
 class DataBaseAdapter:
     def __init__(self):
         # データベースへの接続情報
-        self.host = MYSQL_HOST_NAME
-        self.port = MYSQL_PORT_NO
-        self.user = MYSQL_USER
-        self.password = MYSQL_PASSWORD
-        self.database = "sample_db"
+        self.table = boto3.resource(
+            'dynamodb', 
+            aws_access_key_id=ACCESS_KEY_ID,
+            aws_secret_access_key=SECRET_ACCESS_KEY,
+            endpoint_url=DYNAMO_ENDPOINT_URL
+        ).Table('images')
 
-    def connect_db(self):
-        # データベースへの接続とカーソルの生成
-        connection = mysql.connector.connect(
-            host=self.host,
-            port=self.port,
-            user=self.user,
-            password=self.password,
-            database=self.database,
-        )
-        print("connected!")
-        return connection
+    def create(self, image):
+        JST = tz.gettz('Asia/Tokyo')
+        now_str = datetime.now(JST).strftime("%Y/%m/%d %H:%M:%S")
+        item = {
+                    'id': image["id"],
+                    'title': image["title"],
+                    'memo': image["memo"],
+                    'image_path': image["image_path"],
+                    "created_at": now_str,
+                }
+        try:
+            self.table.put_item(
+                Item=item
+            )
+        except ClientError as err:
+            raise
+        return item
 
-    def create(self, to_do):
-        connection = self.connect_db()
-        with connection:
-            with connection.cursor(dictionary=True) as cur:
-                # レコードを挿入
-                sql = "INSERT INTO `images` (`id`, `title`, `memo`, `image_path`) VALUES (%s, %s, %s, %s)"
-                cur.execute(sql, (to_do["id"], to_do["title"], to_do["memo"], to_do["image_path"]))
-
-                result_sql = "select * from images where `id`=%s;"
-                cur.execute(result_sql, (to_do["id"],))
-
-                result = cur.fetchone()
-            # コミットしてトランザクション実行
-            connection.commit()
-        # 終了処理
-        cur.close()
-        return result
-
-    def update(self, to_do):
+    def update(self, image):
         pass
 
     def get_all(self):
         print("get_all")
-        connection = self.connect_db()
+        table = self.table
 
-        with connection.cursor(dictionary=True) as cur:
-            sql = "select * from images order by created_at;"
-            cur.execute(sql)
-            results = cur.fetchall()
-
-        # 終了処理
-        cur.close()
-        return results
+        images = []
+        scan_kwargs = {}
+        try:
+            done = False
+            start_key = None
+            while not done:
+                if start_key:
+                    scan_kwargs['ExclusiveStartKey'] = start_key
+                response = table.scan(**scan_kwargs)
+                images.extend(response.get('Items', []))
+                start_key = response.get('LastEvaluatedKey', None)
+                done = start_key is None
+        except ClientError as err:
+            print(
+                "Couldn't scan for images. Here's why: %s: %s",
+                err.response['Error']['Code'], err.response['Error']['Message'])
+            raise
+        return images
 
     def get(self, id):
         pass
 
-    def delete(self, todo_id):
-        print("delete", todo_id)
-        connection = self.connect_db()
-        with connection:
-            with connection.cursor(dictionary=True) as cur:
-
-                sql = "delete from images where `id`=%s;"
-                cur.execute(sql, (todo_id,))
-                result = {"deleted_rowcount": cur.rowcount}
-            # コミットしてトランザクション実行
-            connection.commit()
-
-        # 終了処理
-        cur.close()
-        return result
+    def delete(self, image_id):
+        print("delete", image_id)
+        try:
+            self.table.delete_item(Key={'id': image_id})
+        except ClientError as err:
+            raise
+        return "deleted"

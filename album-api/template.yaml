@@ -8,14 +8,6 @@ Description: >
 Parameters:
   ALLOWORIGIN:
     Type: String
-  MYSQLHOSTNAME:
-    Type: String
-  MYSQLPASSWORD:
-    Type: String
-  MYSQLPORTNO:
-    Type: String
-  MYSQLUSER:
-    Type: String
   ENDPOINTURL:
     Type: String
 
@@ -27,10 +19,6 @@ Globals:
     Environment:
       Variables:
         ALLOW_ORIGIN: !Ref ALLOWORIGIN
-        MYSQLHOSTNAME: !Ref MYSQLHOSTNAME
-        MYSQLPASSWORD: !Ref MYSQLPASSWORD
-        MYSQLPORTNO: !Ref MYSQLPORTNO
-        MYSQLUSER: !Ref MYSQLUSER
         ENDPOINT_URL: !Ref ENDPOINTURL
   Api:
     Cors:
