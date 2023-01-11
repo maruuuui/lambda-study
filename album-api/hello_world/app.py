@@ -9,7 +9,7 @@ from util.db import DataBaseAdapter
 BUCKET_NAME='album-api-image-storage'
 DIRECTORY='uploaded_files/'
 
-ALLOW_ORIGIN=os.environ.get('ALLOWORIGIN') if os.environ.get('ALLOWORIGIN') else "http://localhost:3000"
+ALLOW_ORIGIN=os.environ.get('ALLOW_ORIGIN') if os.environ.get('ALLOW_ORIGIN') else "http://localhost:3000"
 ACCESS_KEY_ID=os.environ.get('ACCESS_KEY_ID') if os.environ.get('ACCESS_KEY_ID') else "localid"
 SECRET_ACCESS_KEY=os.environ.get('SECRET_ACCESS_KEY') if os.environ.get('SECRET_ACCESS_KEY') else "localpassword"
 ENDPOINT_URL=os.environ.get('ENDPOINT_URL') if os.environ.get('ENDPOINT_URL') else "http://host.docker.internal:9000"

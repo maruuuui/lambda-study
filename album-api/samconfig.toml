@@ -1,7 +1,7 @@
 version = 0.1
 [default]
 [default.global.parameters]
-parameter_overrides = "ALLOWORIGIN=http://localhost:3000 ENDPOINTURL=http://host.docker.internal:9000"
+parameter_overrides = "ALLOWORIGIN=http://localhost:3000 ENDPOINTURL=http://host.docker.internal:9000 DYNAMOENDPOINTURL=http://host.docker.internal:8005"
 
 [default.deploy]
 [default.deploy.parameters]
@@ -10,6 +10,6 @@ s3_bucket = "aws-sam-cli-managed-default-album-api"
 s3_prefix = "album-api"
 region = "ap-northeast-1"
 capabilities = "CAPABILITY_IAM"
-image_repositories = ["HelloWorldFunction=674302997061.dkr.ecr.ap-northeast-1.amazonaws.com/albumapi9d5888a6/helloworldfunction19d43fc4repo"]
+image_repositories = ["HelloWorldFunction=674302997061.dkr.ecr.ap-northeast-1.amazonaws.com/album-api-repo"]
 
-parameter_overrides = "ALLOWORIGIN=http://s3.maruuuui.tk ENDPOINTURL=http://127.0.0.1:9000"
+parameter_overrides = "ALLOWORIGIN=http://s3.maruuuui.tk ENDPOINTURL=https://album-app.ap-northeast-1.amazonaws.com DYNAMOENDPOINTURL=https://dynamodb.ap-northeast-1.amazonaws.com"
