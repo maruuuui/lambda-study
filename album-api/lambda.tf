@@ -34,8 +34,8 @@ resource "aws_lambda_function" "hello_world" {
       ALLOW_ORIGIN = "http://album-app.maruuuui.tk"
       ENDPOINT_URL = "https://s3.ap-northeast-1.amazonaws.com"
       DYNAMO_ENDPOINT_URL = "https://dynamodb.ap-northeast-1.amazonaws.com"
-      ACCESS_KEY_ID = "bar"
-      SECRET_ACCESS_KEY = "bar"
+      ACCESS_KEY_ID = var.ACCESS_KEY_ID
+      SECRET_ACCESS_KEY = var.SECRET_ACCESS_KEY
     }
   }
 }

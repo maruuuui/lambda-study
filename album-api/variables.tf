@@ -6,3 +6,7 @@ variable "aws_region" {
   type    = string
   default = "ap-northeast-1"
 }
+
+variable "ACCESS_KEY_ID" {}
+
+variable "SECRET_ACCESS_KEY" {}

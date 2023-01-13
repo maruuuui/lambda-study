@@ -9,5 +9,6 @@ beego/app/lastupdate.tmp
 
 *.tfstate
 *.tfstate.*
+*.tfvars
 
 hello_world.zip
