@@ -31,7 +31,7 @@ resource "aws_lambda_function" "hello_world" {
 
   environment {
     variables = {
-      ALLOW_ORIGIN = "http://album-app.maruuuui.tk"
+      ALLOW_ORIGIN = "http://album-app-mod.maruuuui.tk"
       ENDPOINT_URL = "https://s3.ap-northeast-1.amazonaws.com"
       DYNAMO_ENDPOINT_URL = "https://dynamodb.ap-northeast-1.amazonaws.com"
       ACCESS_KEY_ID = var.ACCESS_KEY_ID

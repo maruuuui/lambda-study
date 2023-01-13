@@ -71,3 +71,31 @@ resource "aws_cloudwatch_log_group" "api_gw" {
 
   retention_in_days = 30
 }
+
+resource "aws_apigatewayv2_domain_name" "my_domain" {
+  domain_name              = "album-api-mod.maruuuui.tk"
+
+  domain_name_configuration {
+    certificate_arn = "arn:aws:acm:ap-northeast-1:674302997061:certificate/c3c702cd-bc26-4ed0-95e0-d88766d4be46"
+    endpoint_type   = "REGIONAL"
+    security_policy = "TLS_1_2"
+  }
+}
+
+resource "aws_apigatewayv2_api_mapping" "my_domain" {
+  api_id      = aws_apigatewayv2_api.lambda.id
+  domain_name = aws_apigatewayv2_domain_name.my_domain.id
+  stage       = aws_apigatewayv2_stage.lambda.id
+}
+
+resource "aws_route53_record" "album-api" {
+    zone_id = "Z09991593E0A5TCOI6DUX"
+    name    = "album-api-mod.maruuuui.tk"
+    type    = "A"
+
+    alias {
+        evaluate_target_health = true
+        name                   = aws_apigatewayv2_domain_name.my_domain.domain_name_configuration[0].target_domain_name
+        zone_id                = aws_apigatewayv2_domain_name.my_domain.domain_name_configuration[0].hosted_zone_id
+    }
+}
