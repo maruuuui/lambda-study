@@ -4,3 +4,10 @@ beego/app/app
 beego/app/lastupdate.tmp
 .aws-sam/
 .DS_Store
+
+.terraform/
+
+*.tfstate
+*.tfstate.*
+
+hello_world.zip
